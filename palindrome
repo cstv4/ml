@@ -1,0 +1,20 @@
+def is_palindrome(input_str):
+    # Remove whitespace and convert to lowercase (if input is a string)
+    input_str = str(input_str).replace(" ", "").lower()
+
+    # Check if the reversed string is equal to the original string
+    if input_str == input_str[::-1]:
+        return True
+    else:
+        return False
+
+# Test the function with different inputs
+input1 = "level"
+input2 = "Hello World"
+input3 = 12321
+input4 = 12345
+
+print(f"'{input1}' is a palindrome: {is_palindrome(input1)}")
+print(f"'{input2}' is a palindrome: {is_palindrome(input2)}")
+print(f"{input3} is a palindrome: {is_palindrome(input3)}")
+print(f"{input4} is a palindrome: {is_palindrome(input4)}")
