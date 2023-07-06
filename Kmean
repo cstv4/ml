@@ -1,0 +1,31 @@
+import numpy as np
+np.random.seed(42)
+
+points = np.array([[1, 1], [2, 4], [3, 2], [4, 3], [5, 5], [6, 2], [7, 7], [8, 6]])
+n = len(points)
+k = 2
+centroids = np.array([points[0], points[1]], dtype="float")
+while(True):
+  old_centroids = [[*centroid] for centroid in centroids]
+  euclid_dist = np.array([np.linalg.norm(point - centroid) for point in points for centroid in centroids ]).reshape(n,k)
+  membership_mtx = np.zeros((n,k))
+  for i in range(n):
+    min_idx = np.argmin(euclid_dist[i])
+    membership_mtx[i][min_idx] = 1
+  for i in range(k):
+    index_1 = np.argwhere(membership_mtx[:, i])
+    temp_list = np.array([points[each[0]] for each in index_1])
+    centroids[i][0] = np.average(temp_list[:, 0])
+    centroids[i][1] = np.average(temp_list[:, 1])
+
+  if (old_centroids == centroids).all():
+      break
+
+print("------")
+print(centroids)
+
+
+
+------
+[[2.5 2.5]
+ [6.5 5. ]]
