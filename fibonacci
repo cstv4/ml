@@ -1,15 +1,13 @@
-def fibonacci(n):
-    """Returns the Fibonacci series up to n."""
-    sequence = [0, 1]  # Starting sequence
-    while sequence[-1] < n:
-        next_number = sequence[-1] + sequence[-2]  # Calculate the next number
-        if next_number < n:
-            sequence.append(next_number)  # Append the next number to the sequence
-        else:
-            break
-    return sequence
-
-# Example usage
-n = int(input("Enter a number: "))
-fib_series = fibonacci(n)
-print("Fibonacci series up to", n, ":", fib_series)
+n = int(input("Enter length of Fibonacci series: "))
+num1 = 0
+num2 = 1
+next_number = 0
+count = 1
+  
+while(count <= n):
+    print(next_number, end=" ")
+    count += 1
+    num1 = num2
+    num2 = next_number
+    next_number = num1 + num2
+    t_number = num1 + num2
