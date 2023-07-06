@@ -1,0 +1,61 @@
+import mysql.connector
+mydb = mysql.connector.connect(
+  host="localhost",
+  user="root",
+  passwd="")
+print("data base connected") 
+mycursor=mydb.cursor()
+mycursor.execute("CREATE DATABASE csm1")
+print("data base created ")
+
+
+import mysql.connector
+mydb = mysql.connector.connect(
+  host="localhost",
+  user="root",
+  passwd="",database="csm1")
+print("data base connected") 
+mycursor=mydb.cursor()
+mycursor.execute("CREATE TABLE MGITCSD(NO INT(20),NAME VARCHAR(20))")
+print("TABLE created ")
+
+
+import mysql.connector
+mydb = mysql.connector.connect(
+  host="localhost",
+  user="root",
+  passwd="",database="csm1")
+print("data base connected") 
+no=int(input("enter no"))
+name=input("enter name")
+mycursor=mydb.cursor()
+sql="INSERT INTO mgitcsd (NO, NAME) VALUES (%s,%s)"
+record=(no,name)
+mycursor.execute(sql,record)
+print("row created ")
+mydb.commit()
+
+
+import mysql.connector
+mydb = mysql.connector.connect(
+  host="localhost",
+  user="root",
+  passwd="",database="csm1")
+print("data base connected") 
+mycursor=mydb.cursor()
+mycursor.execute("SELECT * FROM mgitcsd")
+myresult=mycursor.fetchall()
+for row in myresult:
+    print(row)
+
+
+import mysql.connector
+mydb = mysql.connector.connect(
+  host="localhost",
+  user="root",
+  passwd="",database="csm1")
+print("data base connected") 
+mycursor=mydb.cursor()
+mycursor.execute("Update mgitcsd set no = 7000 where name = 'AAA'")
+print("row updated")
+mydb.commit()
