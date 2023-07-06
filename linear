@@ -1,0 +1,34 @@
+import numpy as np
+import matplotlib.pyplot as plt
+np.random.seed(42)
+
+x = np.array([2, 3, 4 , 5, 6])
+y = np.array([1, 3, 2, 4, 3])
+
+m = 0
+c = 0
+alpha = 0.01
+
+plt.plot(x, (m*x+c), "blue", linestyle="dashed", linewidth=3.0)
+n = len(x)
+
+for i in range(1000):
+  E = (1/n) * (np.sum(np.square((y-(m*x+c)))))
+  D_m = (-2/n) * (np.sum((y-(m*x+c))*x))
+  D_c = (-2/n)* (np.sum((y-(m*x+c))))
+  m = m - alpha * D_m
+  c = c - alpha * D_c
+  plt.plot(x, m*x+c)
+
+plt.plot(x, m*x+c, "black", linewidth=3.0)
+print("The cost function is : ", E)
+print("The value of m is :", m)
+print("The value of c is :", c)
+plt.plot(x, y, 'ro')
+plt.show()
+
+
+output: 
+The cost function is :  0.5403481903606565
+The value of m is : 0.5124852554502746
+The value of c is : 0.5441467505541417
