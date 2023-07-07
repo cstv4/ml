@@ -1,31 +1,70 @@
-import numpy as np
-np.random.seed(42)
+import matplotlib.pyplot as plt
 
-points = np.array([[1, 1], [2, 4], [3, 2], [4, 3], [5, 5], [6, 2], [7, 7], [8, 6]])
-n = len(points)
-k = 2
-centroids = np.array([points[0], points[1]], dtype="float")
-while(True):
-  old_centroids = [[*centroid] for centroid in centroids]
-  euclid_dist = np.array([np.linalg.norm(point - centroid) for point in points for centroid in centroids ]).reshape(n,k)
-  membership_mtx = np.zeros((n,k))
-  for i in range(n):
-    min_idx = np.argmin(euclid_dist[i])
-    membership_mtx[i][min_idx] = 1
-  for i in range(k):
-    index_1 = np.argwhere(membership_mtx[:, i])
-    temp_list = np.array([points[each[0]] for each in index_1])
-    centroids[i][0] = np.average(temp_list[:, 0])
-    centroids[i][1] = np.average(temp_list[:, 1])
+x = [4, 5, 10, 4, 3, 11, 14 , 6, 10, 12]
+y = [21, 19, 24, 17, 16, 25, 24, 22, 21, 21]
 
-  if (old_centroids == centroids).all():
-      break
-
-print("------")
-print(centroids)
+plt.scatter(x, y)
+plt.show()
 
 
 
-------
-[[2.5 2.5]
- [6.5 5. ]]
+
+from sklearn.cluster import KMeans
+
+data = list(zip(x, y))
+inertias = []
+
+for i in range(1,11):
+    kmeans = KMeans(n_clusters=i)
+    kmeans.fit(data)
+    inertias.append(kmeans.inertia_)
+
+plt.plot(range(1,11), inertias, marker='o')
+plt.title('Elbow method')
+plt.xlabel('Number of clusters')
+plt.ylabel('Inertia')
+plt.show()
+
+
+
+
+
+kmeans = KMeans(n_clusters=2)
+kmeans.fit(data)
+
+plt.scatter(x, y, c=kmeans.labels_)
+plt.show()
+
+
+
+
+import matplotlib.pyplot as plt
+from sklearn.cluster import KMeans
+
+x = [4, 5, 10, 4, 3, 11, 14 , 6, 10, 12]
+y = [21, 19, 24, 17, 16, 25, 24, 22, 21, 21]
+
+#Convert the above data set into points
+data = list(zip(x, y))
+print(data)
+
+inertias = []
+
+for i in range(1,11):
+    kmeans = KMeans(n_clusters=i)
+    kmeans.fit(data)
+    inertias.append(kmeans.inertia_)
+
+plt.plot(range(1,11), inertias, marker='o')
+plt.title('Elbow method')
+plt.xlabel('Number of clusters')
+plt.ylabel('Inertia')
+plt.show()
+
+
+
+kmeans = KMeans(n_clusters=2)
+kmeans.fit(data)
+
+plt.scatter(x, y, c=kmeans.labels_)
+plt.show()
